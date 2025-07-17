@@ -1,0 +1,89 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: white;
+    text-align: center;
+}
+
+.container {
+    width: 50%;
+    margin: auto;
+    padding: 20px;
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    margin-top: 50px;
+}
+
+input, button {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: none;
+}
+
+button {
+    background-color: #ff5733;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #ff784e;
+}
+
+#results {
+    margin-top: 30px;
+}
+
+.navbar {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    margin-bottom: 20px;
+}
+.navbar-brand img{
+  margin-right: 8px;
+}
+.navbar-nav .navbar-link{
+  font-size: 16px;
+  font-weight: 500;
+  padding: 10px 15px;
+  color: #f8f9fa !important;
+  transition: all 0.3s ease;
+  position: relative;
+}
+.navbar-nav .navbar-link::after{
+  content: "";
+  display: block;
+  width: 0;
+  height: 2px;
+  background-color: #00c853;
+  transition: width 0.3s;
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.navbar-nav .navbar-link:hover::after{
+  width: 100%;
+}
+.dropdown-menu{
+  background: rgb(76, 76, 78);
+  border-radius: 5px;
+  border: none;
+}
+.dropdown-menu .dropdown-item{
+  color:white;
+  transition: background 0.3s;
+}
+.dropdown-menu .dropdown-item:hover{
+  background: #00c853;
+  color:white;
+}
+.navbat-toggler{
+  border: none;
+}
+.navbar-toggler:focus{
+  outline: none;
+}

@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        body{
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .navbar {
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(5px);
+        margin-bottom: 20px;
+    }
+    .navbar-brand img{
+      margin-right: 8px;
+    }
+    .navbar-nav .navbar-link{
+      font-size: 16px;
+      font-weight: 500;
+      padding: 10px 15px;
+      color: #f8f9fa !important;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .navbar-nav .navbar-link::after{
+      content: "";
+      display: block;
+      width: 0;
+      height: 2px;
+      background-color: #00c853;
+      transition: width 0.3s;
+      position: absolute;
+      bottom: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .navbar-nav .navbar-link:hover::after{
+      width: 100%;
+    }
+    .dropdown-menu{
+      background: rgb(76, 76, 78);
+      border-radius: 5px;
+      border: none;
+    }
+    .dropdown-menu .dropdown-item{
+      color:white;
+      transition: background 0.3s;
+    }
+    .dropdown-menu .dropdown-item:hover{
+      background: #00c853;
+      color:white;
+    }
+    .navbat-toggler{
+      border: none;
+    }
+    .navbar-toggler:focus{
+      outline: none;
+    }
+
+        .container0{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width:100%;
+            max-width: 1400px;
+            margin: auto;
+            padding: 20px;
+            margin-top: 50px;
+        }
+        .hero{
+            display: flex;
+            width:100%;
+            align-items: center;
+            justify-content: space-between;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+            border: 2px solid rgb(35, 35, 84);;
+            
+        }
+        .hero:hover{
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);;
+        }
+        .hero-text{
+            flex: 1;
+            max-width: 50%;
+        }
+        .hero h1{
+            font-size: 40px;
+            margin-bottom: 10px;
+            color: #0073e6;
+        }
+        .hero p{
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .hero img{
+            width: 380px;
+            max-width: 3000px;
+            height: 320px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .cards-container{
+            display: flex;
+            flex-wrap: wrap;
+            gap:20px;
+            justify-content: center;
+            width:100%;
+        }
+        .card{
+            display: flex;
+            align-items: center;
+            background: white;
+            padding: 30px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+            max-width: 100%;
+            width:100%;
+            margin: -5px;
+            gap:20px;
+        }
+        .card:hover{
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .card img{
+            width: 40%;
+            min-width: 250px;
+            height: 200px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+        .card-text{
+            flex: 1;
+            max-width: 60%;
+        }
+        .card h2{
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #0073e6;
+        }
+        .card p{
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        @media (min-width:769px) {
+            .card:nth-child(even){
+                flex-direction: row-reverse;
+            }
+        }
+        @media(max-width:768px){
+            .hero{
+                flex-direction: column;
+                text-align: center;
+                padding: 30px;
+            }
+            .hero-text{
+                max-width: 100%;
+                margin-bottom: 20px;
+            }
+            .hero img{
+                width: 80%;
+            }
+            .card{
+                flex-direction: column;
+                text-align: center;
+                margin: 20px;
+            }
+            .card img{
+                width: 80%;
+                height: auto;
+            }
+            .card-text{
+                max-width: 100%;
+            }
+        }
+        @media (min-width:1200px) {
+            .cards-container{
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap:30px;
+            }
+            .card{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                min-height: 300px;
+            }
+            .card img{
+                width: 40%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 10px;
+            }
+            .card-text{
+                flex: 1;
+                max-width: 60%;
+            }
+            .card h2 {
+                font-size: 24px;
+                margin-bottom: 10px;
+                color: #0073e6;
+            }
+
+            .card p {
+                font-size: 16px;
+                line-height: 1.5;
+            }
+            .hero img{
+                width: 420px;
+                max-width: 350px;
+                height: 350px;
+            }
+        }
+
+
+        /* Timeline css */
+        .timeline{
+            position: relative;
+            max-width: 1400px;
+            margin: 100px auto;
+        }
+        .container1{
+            padding: 10px 50px;
+            position: relative;
+            width: 50%;
+            animation: movedown 1s linear forwards;
+            opacity:0;
+        }
+        .textbox{
+            padding: 20px 30px;
+            background-color: #fff;
+            position: relative;
+            border-radius: 20px;
+            font-size: 20px;
+            border:2px solid black
+        }
+        .textbox:hover{
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .leftc{
+            left:0;
+        }
+        .rightc{
+            left:50%;
+        }
+        .container1 img{
+            position: absolute;
+            width:40px;
+            border-radius: 50%;
+            right:-20px;
+            top:32px;
+            z-index:10;
+        }
+        @keyframes movedown{
+            0%{
+                opacity: 1;
+                transform: translateY(-30px);
+            }
+            100%{
+                opacity: 1;
+                transform: translateY(0px);
+            }
+        }
+        .container1:nth-child(1){
+            animation-delay: 0s;
+        }
+        .container1:nth-child(2){
+            animation-delay: 1s;
+        }
+        .container1:nth-child(3){
+            animation-delay: 2s;
+        }
+        .container1:nth-child(4){
+            animation-delay: 3s;
+        }
+        .container1:nth-child(5){
+            animation-delay: 4s;
+        }
+        .container1:nth-child(6){
+            animation-delay: 5s;
+        }
+        .container1:nth-child(7){
+            animation-delay: 6s;
+        }
+        .rightc img{
+            left:-20px;
+        }
+        .timeline::after{
+            content: "";
+            position: absolute;
+            width: 6px;
+            height: 100%;
+            background: #fff;
+            top:0;
+            left: 50%;
+            margin-left: -3px;
+            z-index: -1;
+            animation: moveline 6s linear forwards;
+        }
+        @keyframes moveline{
+            0%{
+                height: 0;
+            }
+            100%{
+                height: 100%;
+            }
+        }
+        .textbox h2{
+            font-weight: 600;
+            color: #0073e6;
+        }
+        .textbox small{
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        .leftc-arrow{
+            height: 0;
+            width: 0;
+            position: absolute;
+            top:28px;
+            z-index: 1;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            border-left: 15px solid black;
+            right:-15px
+        }
+        .rightc-arrow{
+            height: 0;
+            width: 0;
+            position: absolute;
+            top:28px;
+            z-index: 1;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            border-right: 15px solid black;
+            left:-15px
+        }
+        @media screen and (max-width:600px){
+            .timeline{
+                margin: 50px auto;
+            }
+            .timeline::after{
+                left:31px;
+            }
+            .container1{
+                width: 100%;
+                padding-left: 80px;
+                padding-right: 25px;
+            }
+            .textbox{
+                font-size: 13px;
+            }
+            .textbox small{
+                margin-bottom: 10px;
+            }
+            .rightc{
+                left: 0;
+            }
+            .leftc img,.rightc img{
+                left:10px;
+            }
+            .leftc-arrow,.rightc-arrow{
+                border-right: 15px solid #fff;
+                border-left: 0;
+                left: -15px;
+            }
+        }
+
+        /* Testimonial css */
+        .hero1{
+            height: 100vh;
+            width: 100%;
+            position: relative;
+        }
+        .hero1 h1{
+            text-align: center;
+            padding-top: 40px;
+            font-size: 40px;
+            color: rgb(35, 35, 84);;
+        }
+        .slide-row{
+            display:flex;
+            width: 3200px;
+            transition: 0.5s;
+        }
+        .slide-col{
+            width:800px;
+            height:400px;
+            position: relative;
+        }
+        .user-img{
+            position: absolute;
+            top:0;
+            right: 0;
+            height: 100%;
+        }
+        .user-img:hover{
+            transform: translateX(-20px)
+        }
+        .user-img img{
+            height:100%;
+            border-radius: 10px;
+        }
+        .user-text{
+            background: #fff;
+            width:550px;
+            height: 270px;
+            position: absolute;
+            left:0;
+            top:50%;
+            transform: translateY(-50%);
+            border-radius: 10px;
+            color:#0073e6;
+            padding: 45px;
+            box-sizing: border-box;
+            z-index: 2;
+            border:2px solid black;
+            margin-bottom: 20px;
+        }
+        .user-text:hover{
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);;
+        }
+        .user-text p{
+            font-size: 16px;
+            line-height: 24px;
+            margin-bottom: 10px;
+        }
+        .user-text h3{
+            margin: 25px 0 5px;
+            color:black;
+        }
+        .container2{
+            width:800px;
+            height: 500px;
+            position: absolute;
+            top:50%;
+            left:50%;
+            transform: translate(-50%,-50%);
+        }
+        .indicator{
+            position:absolute;
+            left:50%;
+            transform: translateX(-50%);
+            bottom: -50px;
+        }
+        .btn{
+            display: inline-block;
+            height: 15px;
+            width: 15px;
+            margin: 4px;
+            border-radius: 15px;
+            background: rgb(35, 35, 84);;
+            cursor: pointer;
+            transition: 0.5s;
+        }
+        .btn:hover{
+            transform: scale(1.1);
+        }
+        .active{
+            width: 45px;
+        }
+        .testimonial{
+            height: 100%;
+            width: 100%;
+            overflow:hidden;
+        }
+        .user-text .quote i{
+            margin-top: -30px;
+            font-size: 45px;
+            color: rgb(35, 35, 84);
+        }
+        .user-text i{
+            color: rgb(35, 35, 84);
+        }
+        @media screen and (max-width:600px){
+            .container2{
+                width: 500px;
+                height: 600px;
+                align-items: center;
+            }
+            .user-text{
+                height: 350px;
+                width: 500px;
+                align-items: center;
+                margin-top: 30px;
+            }
+            .user-img{
+                height: 50%;
+                width: 50%;
+                align-items: baseline;
+                top:330px;
+                right:300px;
+                z-index: 2;
+            }
+            .user-img img{
+                border-radius: 50%;
+                width: 250px;
+            }
+        }
+        .company{
+            color: rgb(35, 35, 84);;
+        }
+
+        /* Accordian */
+        .swiper-container {
+            width: 100%;
+            max-width: 1000px;
+            background: #fff;
+            padding: 20px;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        .swiper-slide {
+            background: #fff;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .faq-question {
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-answer {
+            padding: 0 15px;
+            display: none;
+            font-size: 16px;
+            color: #555;
+            line-height: 1.5;
+        }
+        .faq-active .faq-answer {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        .toggle-icon {
+            transition: transform 0.3s ease-in-out;
+        }
+        .faq-active .toggle-icon {
+            transform: rotate(180deg);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media (max-width: 768px) {
+            .swiper-container {
+                max-width: 90%;
+                padding: 15px;
+            }
+            .faq-question {
+                font-size: 16px;
+                padding: 12px;
+            }
+            .faq-answer {
+                font-size: 14px;
+                padding: 0 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="{{ url_for('home')}}">
+            <img src="/static/logo.png" height="30px" width="30px" class="rounded-pill">
+            Investify
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="{{ url_for('home')}}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Topics
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ url_for('bsm.index')}}">Black-Scholes Merton Equation</a>
+                    <a class="dropdown-item" href="{{ url_for('scc.index')}}">Candle Stick Chart</a>
+                    <a class="dropdown-item" href="{{ url_for('pv.index')}}">Portfolio Visualization</a>
+                    <a class="dropdown-item" href="{{ url_for('mc.index')}}">Monte Carlo Stimulation</a>
+                </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" data-toggle="modal" data-target="#tickerModal">Ticker</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('News.news')}}">News</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('AboutUs.about')}}">About Us</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{url_for('form.index')}}" class="nav-link btn btn-outline-light">Login</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+    <div class="container0">
+        <div class="hero">
+            <div class="hero-text">
+                <h1>Investify</h1>
+                <p>Investment returns amplified. Empowering the world with smart investments and financial insights.</p>
+            </div>
+            <img src="/static/hero2.webp" alt="Powerful Inverstment Image">
+        </div>
+
+        <div class="cards-container">
+            <div class="card">
+                <img src="/static/technology.webp" alt="Innovation">
+                <div class="card-text">
+                    <h2>Innovative Solutions</h2>
+                    <p>At Investify, we leverage cutting-edge technology to provide the best investment opportunities tailored to your needs.</p>
+                </div>
+            </div>
+    
+            <div class="card">
+                <img src="/static/trust.webp" alt="Trust">
+                <div class="card-text">
+                    <h2>Built on Trust</h2>
+                    <p>Our commitment to transparency and reliability ensures that you can invest with confidence, knowing your financial future is secure.</p>
+                </div>
+            </div>
+    
+            <div class="card">
+                <img src="/static/pro.webp" alt="Expertise">
+                <div class="card-text">
+                    <h2>Industry Expertise</h2>
+                    <p>Our team of experts brings years of experience to help you navigate the complexities of the financial market effortlessly.</p>
+                </div>
+            </div>
+    
+            <div class="card">
+                <img src="/static/community.jpeg" alt="Community">
+                <div class="card-text">
+                    <h2>Empowering a Community</h2>
+                    <p>We believe in financial education and empowerment, helping investors make informed decisions for a better tomorrow.</p>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+
+    <!-- Timeline section -->
+    <div class="timeline">
+        <div class="container1 leftc">
+            <img src="/static/one.png">
+            <div class="textbox">
+                <h2>Investify Inc.</h2>
+                <small>2024 September</small>
+                <p>Investify was founded with the goal of simplifying investing for individuals by providing real-time market insights and portfolio management tools.</p>
+                <span class="leftc-arrow"></span>
+            </div>
+        </div>
+        <div class="container1 rightc">
+            <img src="/static/two.png" >
+            <div class="textbox">
+                <h2>Black-Scholes Model Added</h2>
+                <small>2024 October</small>
+                <p>Introduced the Black-Scholes equation for options pricing, helping learners grasp derivatives.</p>
+                <span class="rightc-arrow"></span>
+            </div>
+        </div>
+        <div class="container1 leftc">
+            <img src="/static/three.png">
+            <div class="textbox">
+                <h2>Portfolio Analysis</h2>
+                <small>2024 November</small>
+                <p>Investify introduced portfolio visualization tools, allowing users to track investments and analyze performance in real time.</p>
+                <span class="leftc-arrow"></span>
+            </div>
+        </div>
+        <div class="container1 rightc">
+            <img src="/static/four.png">
+            <div class="textbox">
+                <h2>Candlestick Charts</h2>
+                <small>2024 December</small>
+                <p>Added interactive candlestick charts to help users analyze historical price movements and identify trading patterns.</p>
+                <span class="rightc-arrow"></span>
+            </div>
+        </div>
+        <div class="container1 leftc">
+            <img src="/static/five.png">
+            <div class="textbox">
+                <h2>Monte Carlo Simulation</h2>
+                <small>2025 January</small>
+                <p>Integrated Monte Carlo simulations to allow users to assess the probability of different financial outcomes based on market trends.</p>
+                <span class="leftc-arrow"></span>
+            </div>
+        </div>
+        <div class="container1 rightc">
+            <img src="/static/six.png">
+            <div class="textbox">
+                <h2>Live Forex & Stock Charts</h2>
+                <small>2025 February</small>
+                <p>Launched live forex and stock charts, giving users up-to-the-minute pricing data for informed decision-making.</p>
+                <span class="rightc-arrow"></span>
+            </div>
+        </div>
+        <div class="container1 leftc">
+            <img src="/static/seven.png">
+            <div class="textbox">
+                <h2>AI-Powered Predictions</h2>
+                <small>2025 March</small>
+                <p>Launched AI-based predictive analytics to help investors forecast market movements with greater accuracy.</p>
+                <span class="leftc-arrow"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testimonial section -->
+    <div class="hero1">
+        <h1>Testimonials</h1>
+
+        <div class="container2">
+            <div class="indicator">
+                <span class="btn active"></span>
+                <span class="btn"></span>
+                <span class="btn"></span>
+                <span class="btn"></span>
+            </div>
+            <div class="testimonial">
+                <div class="slide-row" id="slide">
+                    <div class="slide-col">
+                        <div class="user-text">
+                            <div class="quote">
+                                <i class="fa fa-quote-left"></i>
+                            </div>
+                            
+                            <p>Investify has transformed the way I track my investments. The live stock data feature keeps me updated in real-time, and the portfolio analysis tool helps me make smarter financial decisions.</p>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <h3>Sarah </h3>
+                            <p class="company">FinEdge Capital</p>
+                        </div>
+                        <div class="user-img">
+                            <img src="/static/Sarah.webp" >
+                        </div>
+                    </div>
+                    <div class="slide-col">
+                        <div class="user-text">
+                            <div class="quote">
+                                <i class="fa fa-quote-left"></i>
+                            </div>
+                            <p>The Monte Carlo simulation and Black-Scholes Merton equation tools are game-changers for anyone serious about understanding risk and options pricing.</p>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <h3>Jeffery </h3>
+                            <p class="company">Treymont Inc.</p>
+                        </div>
+                        <div class="user-img">
+                            <img src="/static/Jeffery.webp" >
+                        </div>
+                    </div>
+                    <div class="slide-col">
+                        <div class="user-text">
+                            <div class="quote">
+                                <i class="fa fa-quote-left"></i>
+                            </div>
+                            <p>As a hedge fund manager, I need reliable data-driven insights. Investify's portfolio analysis and stock data visualization tools give me a clear edge in my investment strategies.</p>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <h3>Jacob </h3>
+                            <p class="company">HailHedge Inc.</p>
+                        </div>
+                        <div class="user-img">
+                            <img src="/static/Jacob.webp" >
+                        </div>
+                    </div>
+                    <div class="slide-col">
+                        <div class="user-text">
+                            <div class="quote">
+                                <i class="fa fa-quote-left"></i>
+                            </div>
+                            <p>Investify is an incredible learning platform! Whether you're a beginner or an advanced investor, the interactive tools make financial learning both engaging and practical.</p>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <h3>Samantha </h3>
+                            <p class="company">Professor</p>
+                        </div>
+                        <div class="user-img">
+                            <img src="/static/Samantha.webp" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <script>
+        var btn = document.getElementsByClassName('btn');
+        var slide = document.getElementById('slide');
+
+        btn[0].onclick = function(){
+            slide.style.transform='translateX(0px)';
+            for(i=0;i<4;i++){
+                btn[i].classList.remove('active')
+            }
+            this.classList.add('active')
+        }
+        btn[1].onclick = function(){
+            slide.style.transform='translateX(-800px)';
+            for(i=0;i<4;i++){
+                btn[i].classList.remove('active')
+            }
+            this.classList.add('active')
+        }
+        btn[2].onclick = function(){
+            slide.style.transform='translateX(-1600px)';
+            for(i=0;i<4;i++){
+                btn[i].classList.remove('active')
+            }
+            this.classList.add('active')
+        }
+        btn[3].onclick = function(){
+            slide.style.transform='translateX(-2400px)';
+            for(i=0;i<4;i++){
+                btn[i].classList.remove('active')
+            }
+            this.classList.add('active')
+        }
+    </script>
+
+
+    <!-- Accordian -->
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="faq-question">What is Investify? <span class="toggle-icon">▼</span></div>
+                <div class="faq-answer">Investify is an educational platform that helps users learn about investing through live charts, portfolio analysis, and simulations.</div>
+            </div>
+            <div class="swiper-slide">
+                <div class="faq-question">How does Investify calculate portfolio performance? <span class="toggle-icon">▼</span></div>
+                <div class="faq-answer">Investify uses real-time market data and calculates performance based on your stock entries and price variations.</div>
+            </div>
+            <div class="swiper-slide">
+                <div class="faq-question">What features does Investify offer? <span class="toggle-icon">▼</span></div>
+                <div class="faq-answer">Investify includes a live forex chart, stock portfolio tracker, Black-Scholes model, Monte Carlo simulation, and candlestick charts.</div>
+            </div>
+            <div class="swiper-slide">
+                <div class="faq-question">Is Investify free to use? <span class="toggle-icon">▼</span></div>
+                <div class="faq-answer">Yes, Investify provides free learning resources. However, premium features might be introduced in the future.</div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            direction: 'vertical',
+            slidesPerView: 'auto',
+            spaceBetween: 10,
+            mousewheel: true,
+        });
+
+        document.querySelectorAll('.faq-question').forEach(item => {
+            item.addEventListener('click', () => {
+                const parent = item.parentNode;
+                parent.classList.toggle('faq-active');
+            });
+        });
+    </script>
+</body>
+</html>

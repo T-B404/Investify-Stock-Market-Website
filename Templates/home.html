@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en" style="overflow-x: hidden;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximun-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+    html,body{
+      overflow-x: hidden;
+      max-width: 100vw;
+      margin:0;
+      padding: 0;
+    }
+    body {
+        font-family: Arial, sans-serif;
+        padding-top: 70px; /* to account for the navbar */
+    }
+    
+    .navbar {
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(5px);
+        margin-bottom: 20px;
+    }
+    .navbar-brand img{
+      margin-right: 8px;
+    }
+    .navbar-nav .navbar-link{
+      font-size: 16px;
+      font-weight: 500;
+      padding: 10px 15px;
+      color: #f8f9fa !important;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .navbar-nav .navbar-link::after{
+      content: "";
+      display: block;
+      width: 0;
+      height: 2px;
+      background-color: #00c853;
+      transition: width 0.3s;
+      position: absolute;
+      bottom: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .navbar-nav .navbar-link:hover::after{
+      width: 100%;
+    }
+    .dropdown-menu{
+      background: rgb(76, 76, 78);
+      border-radius: 5px;
+      border: none;
+    }
+    .dropdown-menu .dropdown-item{
+      color:white;
+      transition: background 0.3s;
+    }
+    .dropdown-menu .dropdown-item:hover{
+      background: #00c853;
+      color:white;
+    }
+    .navbat-toggler{
+      border: none;
+    }
+    .navbar-toggler:focus{
+      outline: none;
+    }
+
+
+    /* Container for the scrolling stock cards */
+    .stock-ticker {
+        overflow: hidden;
+        white-space: nowrap;
+        width: 100vw;
+        margin:0;
+        padding:0;
+        display: flex;
+        align-items: center;
+    }
+
+    /* Inner container that holds the stock cards */
+    .stock-cards {
+        min-width: max-content;
+        display: flex;
+        flex-wrap: nowrap;
+        padding: 0 10px;
+        animation: scroll-ticker 10s linear infinite;
+    }
+    .stock-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+    /* Style for each individual card */
+    .stock-card {
+        background-color: #f8f9fa;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 10px !important;
+        margin-right: 10px !important;
+        min-width:140px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        min-width: 150px;
+        text-align: center;
+        transition: transform 5s;
+        margin-bottom: 10px;
+    }
+    .stock-card:hover {
+        transform: scale(1.05);
+        animation-play-state: paused !important;
+        box-shadow:  0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .stock-symbol {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .stock-price {
+        font-size: 1.1rem !important;
+        color: #28a745;
+    }
+    /* Keyframes for horizontal scrolling animation */
+    @keyframes scroll-ticker {
+    0% {
+        transform: translate(0);
+    }
+    100% {
+        transform: translate(-10%); /* Moves the entire width */
+    }
+}
+
+    @media (max-width:576px){
+      .stock-card{
+        min-width: 100px;
+        padding:10px;
+        margin-right:10px;
+      }
+      .stock-logo{
+        width: 30px;
+        height: 30px;
+      }
+      .stock-price{
+        font-size: 18px;
+      }
+    }
+    @media (max-width:400px){
+      .stock-card{
+        min-width: 100px;
+      }
+    }
+    .trading-widget-container{
+      width:100% !important;
+      height:100% !important
+    }
+    @media (max-width:768px){
+      .stock-card{
+        min-width:120px;
+        margin-right: 10px;
+      }
+      .stock-symbol{
+        font-size: 16px;
+      }
+      .stock-price{
+        font-size: 18px;
+      }
+    }
+    .widget-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+      gap:10px;
+      padding:10px
+    }
+    .trading-widget-container{
+      min-height: 150px;
+      height: 150px;
+    }
+    @media (max-width:768px){
+      .stock-cards{
+        animation-duration: 25s;
+      }
+      .stock-card{
+        min-width: 120px;
+        padding: 10px;
+      }
+    }
+    @media (max-width: 576px){
+      .widget-grid{
+        grid-template-columns: 1fr;
+      }
+      .stock-card{
+        min-width: 100px;
+        margin-right: 8px;
+      }
+      .stock-symbol{
+        font-size: 14px;
+      }
+      .stock-price{
+        font-size: 16px;
+      }
+    }
+
+    .widget-container{
+      display:grid;
+      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+      grid-auto-rows: minmax(150px,auto);
+      gap:10px;
+      padding: 10px;
+      align-items: start;
+      position: relative;
+    }
+    .tradingview-widget{
+      min-height: 150px;
+      height: 200px;
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+      overflow: hidden;
+      background: white;
+    }
+    .tradingview-widget:nth-child(1)
+    .tradingview-widget:nth-child(2){
+      grid-row: span 1;
+    }
+    .full-width-widget{
+      grid-column: 1/-1;
+      height: 800px !important;
+      min-width: 400px;
+      margin-top: -20px;
+    }
+    .widget-container:not(:first-child){
+      margin-top: -8px;
+    }
+    .square-widget{
+      aspect-ratio: 1/1;
+      height: auto;
+    }
+    @media (min-width:1200px){
+      .tradingview-widget{
+        min-width: 250px;
+      }
+      .full-width-widget{
+        height: 600px;
+      }
+    }
+    
+    @media (max-width:768px){
+      .widget-container{
+        grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+        gap:10px;
+        padding:10px;
+      }
+      .tradingview-widget:nth-child(3n+1){
+        grid-row: span 2;
+      }
+      .full-width-widget{
+        height: 500px;
+      }
+    }
+    
+</style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="{{ url_for('home')}}">
+            <img src="/static/logo.png" height="30px" width="30px" class="rounded-pill">
+            Investify
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="{{ url_for('home')}}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Topics
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ url_for('bsm.index')}}">Black-Scholes Merton Equation</a>
+                    <a class="dropdown-item" href="{{ url_for('scc.index')}}">Candle Stick Chart</a>
+                    <a class="dropdown-item" href="{{ url_for('pv.index')}}">Portfolio Visualization</a>
+                    <a class="dropdown-item" href="{{ url_for('mc.index')}}">Monte Carlo Stimulation</a>
+                </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" data-toggle="modal" data-target="#tickerModal">Ticker</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('News.news')}}">News</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('AboutUs.about')}}">About Us</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{url_for('form.index')}}" class="nav-link btn btn-outline-light">Login</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="modal fade" id="tickerModal" tabindex="-1" aria-labelledby="tickerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="tickerModalLabel">Search for Ticker</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <input type="text" id="companyInput" class="form-control" placeholder="Enter Company Name">
+              <br>
+              <button class="btn btn-primary btn-block" onclick="searchTicker()">Search</button>
+              <p id="tickerResult" class="mt-3 text-center"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        function searchTicker() {
+          var companyName = document.getElementById("companyInput").value;
+          fetch('/get_ticker?company=' + encodeURIComponent(companyName))
+              .then(response => response.json())
+              .then(data => {
+                  document.getElementById("tickerResult").innerText = data.ticker ? "Ticker Symbol: " + data.ticker : "Company not found.";
+              });
+        }
+      </script>
+
+      <div class="container-fluid px-0">
+        <div class="stock-ticker">
+          <div class="stock-cards" id="stockCards"></div>
+        </div>
+      </div>
+      
+  <!-- <script>
+    const stockData = [
+        { symbol: "AAPL", price: 150.73,logo:'/static/apple.png' },
+        { symbol: "GOOG", price: 2750.92,logo:'/static/google.png' },
+        { symbol: "AMZN", price: 3432.89,logo:'/static/amazon.png' },
+        { symbol: "TSLA", price: 650.45 ,logo:'/static/tesla.png'},
+        { symbol: "MSFT", price: 299.87 ,logo:'/static/microsoft.png'},
+        { symbol: "NFLX", price: 572.34,logo:'/static/netflix.webp' },
+    ];
+    function createStockCards() {
+        const stockCardsContainer = document.querySelector('.stock-cards');
+        stockData.forEach(stock => {
+            const card = document.createElement('div');
+            card.classList.add('stock-card');
+
+            const logo = document.createElement('img');
+            logo.classList.add('stock-logo');
+            logo.src = stock.logo;
+            logo.alt = `${stock.symbol} Logo`;
+
+            const stockSymbol = document.createElement('div');
+            stockSymbol.classList.add('stock-symbol');
+            stockSymbol.textContent = stock.symbol;
+
+            const stockPrice = document.createElement('div');
+            stockPrice.classList.add('stock-price');
+            stockPrice.textContent = `$${stock.price.toFixed(2)}`;
+
+            card.appendChild(logo);
+            card.appendChild(stockSymbol);
+            card.appendChild(stockPrice);
+
+            stockCardsContainer.appendChild(card);
+        });
+        // Duplicate cards to create a continuous loop
+        stockCardsContainer.innerHTML += stockCardsContainer.innerHTML;
+        stockCardsContainer.innerHTML += stockCardsContainer.innerHTML;
+    }
+    createStockCards();
+</script> -->
+
+<script>
+  const symbols = ['AAPL', 'GOOGL', 'AMZN', 'TSLA', 'MSFT', 'NFLX'];
+  let scrollSpeed = 0.01; // Adjust for desired speed
+  function moveTicker() {
+      const container = document.getElementById("stockCards");
+      container.style.transform = `translateX(${container.offsetLeft - scrollSpeed}px)`;
+      requestAnimationFrame(moveTicker);
+  }
+  moveTicker();
+
+  async function fetchStockPrices() {
+    try {
+        const response = await fetch('/stocks/get_stocks');
+        const stockData = await response.json();
+        return stockData;
+    } catch (error) {
+        console.error('Error fetching stock prices:', error);
+        return symbols.map(symbol => ({ symbol, price: 230, logo: `/static/default.png` }));
+    }
+  }
+
+  async function createStockCards() {
+    const stockCardsContainer = document.querySelector('.stock-cards');
+    stockCardsContainer.innerHTML = '';  // Clear existing content
+    const stockData = await fetchStockPrices();
+    
+    // Create and duplicate cards dynamically
+    const numRepeats = Math.ceil(window.innerWidth / 150) + 2; // Ensure full coverage
+    for (let i = 0; i < numRepeats; i++) {
+        stockData.forEach(stock => {
+            const card = document.createElement('div');
+            card.classList.add('stock-card');
+
+            const logo = document.createElement('img');
+            logo.classList.add('stock-logo');
+            logo.src = stock.logo;
+            logo.alt = `${stock.symbol} Logo`;
+
+            const stockSymbol = document.createElement('div');
+            stockSymbol.classList.add('stock-symbol');
+            stockSymbol.textContent = stock.symbol;
+
+            const stockPrice = document.createElement('div');
+            stockPrice.classList.add('stock-price');
+            stockPrice.textContent = `$${stock.price.toFixed(2)}`;
+
+            card.appendChild(logo);
+            card.appendChild(stockSymbol);
+            card.appendChild(stockPrice);
+
+            stockCardsContainer.appendChild(card);
+        });
+    }
+  }
+  createStockCards();
+
+
+
+  document.addEventListener('DOMContentLoaded', createStockCards);
+</script>
+
+
+
+<div class="container-fluid">
+  <div class="widget-grid">
+    <div class="trading-widget-container">  
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+      {
+      "symbol": "BSE:SENSEX",
+      "width": "100%",
+      "isTransparent": false,
+      "colorTheme": "light",
+      "locale": "en"
+      }
+      </script>
+    </div>
+    <div class="trading-widget-container">
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+      {
+      "symbol": "BSE:IPO",
+      "width": "100%",
+      "isTransparent": false,
+      "colorTheme": "light",
+      "locale": "en"
+      }
+      </script>
+    </div>
+    <div class="trading-widget-container">
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+      {
+      "symbol": "FX_IDC:INRUSD",
+      "width": "100%",
+      "isTransparent": false,
+      "colorTheme": "light",
+      "locale": "en"
+      }
+      </script>
+    </div>
+    <div class="trading-widget-container">
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+        {
+        "symbol": "BSE:TATAMOTORS",
+        "width": "100%",
+        "isTransparent": false,
+        "colorTheme": "light",
+        "locale": "en"
+        }
+        </script>
+    </div>
+  </div>
+</div>
+
+
+<div class="widget-container">
+  <div class="tradingview-widget full-width-widget">
+    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-hotlists.js" async>
+    {
+    "colorTheme": "light",
+    "dateRange": "12M",
+    "exchange": "BSE",
+    "showChart": true,
+    "locale": "en",
+    "width": "100%",
+    "height": "100%",
+    "largeChartUrl": "",
+    "isTransparent": false,
+    "showSymbolLogo": true,
+    "showFloatingTooltip": true,
+    "plotLineColorGrowing": "rgba(41, 98, 255, 1)",
+    "plotLineColorFalling": "rgba(41, 98, 255, 1)",
+    "gridLineColor": "rgba(46, 46, 46, 0)",
+    "scaleFontColor": "rgba(15, 15, 15, 1)",
+    "belowLineFillColorGrowing": "rgba(41, 98, 255, 0.12)",
+    "belowLineFillColorFalling": "rgba(41, 98, 255, 0.12)",
+    "belowLineFillColorGrowingBottom": "rgba(41, 98, 255, 0)",
+    "belowLineFillColorFallingBottom": "rgba(41, 98, 255, 0)",
+    "symbolActiveColor": "rgba(41, 98, 255, 0.12)"
+    }
+    </script>
+  </div>
+</div>
+
+<div class="widget-container">
+  <div class="tradingview-widget full-width-widget">
+    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
+    {
+    "width": "100%",
+    "height": "100%",
+    "symbolsGroups": [
+      {
+        "name": "Indices",
+        "originalName": "Indices",
+        "symbols": [
+          {
+            "name": "BSE:SENSEX",
+            "displayName": "BSE"
+          },
+          {
+            "name": "BSE:IPO"
+          },
+          {
+            "name": "BSE:BSEPBI"
+          },
+          {
+            "name": "BSE:BSEQUI"
+          }
+        ]
+      },
+      {
+        "name": "Futures",
+        "originalName": "Futures",
+        "symbols": [
+          {
+            "name": "CME_MINI:ES1!",
+            "displayName": "S&P 500"
+          },
+          {
+            "name": "CME:6E1!",
+            "displayName": "Euro"
+          },
+          {
+            "name": "COMEX:GC1!",
+            "displayName": "Gold"
+          },
+          {
+            "name": "NYMEX:CL1!",
+            "displayName": "WTI Crude Oil"
+          },
+          {
+            "name": "NYMEX:NG1!",
+            "displayName": "Gas"
+          },
+          {
+            "name": "CBOT:ZC1!",
+            "displayName": "Corn"
+          }
+        ]
+      },
+      {
+        "name": "Bonds",
+        "originalName": "Bonds",
+        "symbols": [
+          {
+            "name": "CBOT:ZB1!",
+            "displayName": "T-Bond"
+          },
+          {
+            "name": "CBOT:UB1!",
+            "displayName": "Ultra T-Bond"
+          },
+          {
+            "name": "EUREX:FGBL1!",
+            "displayName": "Euro Bund"
+          },
+          {
+            "name": "EUREX:FBTP1!",
+            "displayName": "Euro BTP"
+          },
+          {
+            "name": "EUREX:FGBM1!",
+            "displayName": "Euro BOBL"
+          }
+        ]
+      },
+      {
+        "name": "Forex",
+        "originalName": "Forex",
+        "symbols": [
+          {
+            "name": "FX:EURUSD",
+            "displayName": "EUR to USD"
+          },
+          {
+            "name": "FX:GBPUSD",
+            "displayName": "GBP to USD"
+          },
+          {
+            "name": "FX:USDJPY",
+            "displayName": "USD to JPY"
+          },
+          {
+            "name": "FX:USDCHF",
+            "displayName": "USD to CHF"
+          },
+          {
+            "name": "FX:AUDUSD",
+            "displayName": "AUD to USD"
+          },
+          {
+            "name": "FX:USDCAD",
+            "displayName": "USD to CAD"
+          }
+        ]
+      }
+    ],
+    "showSymbolLogo": true,
+    "isTransparent": false,
+    "colorTheme": "light",
+    "locale": "en",
+    "backgroundColor": "#ffffff"
+  }
+  </script>
+</div>
+</div>
+
+
+
+<footer class="bg-dark text-white pt-4 pb-2">
+  <div class="container">
+      <div class="row">
+          <div class="col-md-4">
+              <h5>Investify</h5>
+              <p>Empowering investors with real-time data and advanced tools.</p>
+              <p>© 2025 Investify. All rights reserved.</p>
+          </div>
+          <div class="col-md-4 text-center">
+              <h5>Quick Links</h5>
+              <ul class="list-unstyled">
+                  <li><a href="#" class="text-white">Home</a></li>
+                  <li><a href="#" class="text-white">News</a></li>
+                  <li><a href="#" class="text-white">About Us</a></li>
+                  <li><a href="#" class="text-white">Contact</a></li>
+              </ul>
+          </div>
+          <div class="col-md-4 text-md-center text-center">
+              <h5>Follow Us</h5>
+              <a href="#" class="text-white mx-2"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" class="text-white mx-2"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="text-white mx-2"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#" class="text-white mx-2"><i class="fab fa-instagram"></i></a>
+          </div>
+      </div>
+  </div>
+</footer>
+
+
+</body>
+</html>

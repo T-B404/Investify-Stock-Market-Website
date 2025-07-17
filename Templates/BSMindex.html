@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black_Scholes Calculator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
+    
+    <link rel="icon" href="/static/p1.jpg" type="image/png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']]
+          },
+          svg: {
+            fontCache: 'global'
+          }
+        };
+        </script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            font-family: 'Inter', sans-serif;
+            background: #f4f4f4;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+        }
+        .navbar {
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(5px);
+        margin-bottom: 20px;
+    }
+    .navbar-brand img{
+      margin-right: 8px;
+    }
+    .navbar-nav .navbar-link{
+      font-size: 16px;
+      font-weight: 500;
+      padding: 10px 15px;
+      color: #f8f9fa !important;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .navbar-nav .navbar-link::after{
+      content: "";
+      display: block;
+      width: 0;
+      height: 2px;
+      background-color: #00c853;
+      transition: width 0.3s;
+      position: absolute;
+      bottom: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .navbar-nav .navbar-link:hover::after{
+      width: 100%;
+    }
+    .dropdown-menu{
+      background: rgb(76, 76, 78);
+      border-radius: 5px;
+      border: none;
+    }
+    .dropdown-menu .dropdown-item{
+      color:white;
+      transition: background 0.3s;
+    }
+    .dropdown-menu .dropdown-item:hover{
+      background: #00c853;
+      color:white;
+    }
+    .navbat-toggler{
+      border: none;
+    }
+    .navbar-toggler:focus{
+      outline: none;
+    }
+        .container0{
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 100%;
+            text-align: left;
+            transform: translateY(-20px);
+            opacity: 0;
+            animation: fadeIn 0.6s forwards ease-out;
+            margin-top: 50px;
+        }
+        @keyframes fadeIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        h1{
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #333;
+            font-weight: 700;
+            text-align: center;
+        }
+        p{
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        form{
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+        label{
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #222;
+        }
+        input{
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: 0.3s;
+            background: #fff;
+            color: #333;
+            margin-bottom: 12px;
+        }
+        input:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+        }
+        button{
+            padding: 12px;
+            margin-top: 15px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+            margin-bottom: 20px;
+        }
+        button:hover{
+            background: #0056b3;
+            transform: scale(1.05);
+        }
+        button:active {
+            transform: scale(0.95);
+        }
+        #results{
+            margin-top: 20px;
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            color: #333;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+        @media (max-width: 500px) {
+            .container0 {
+                max-width: 90%;
+                padding: 20px;
+            }
+            h1 {
+                font-size: 1.3rem;
+            }
+            button {
+                font-size: 0.9rem;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="{{ url_for('home')}}">
+            <img src="/static/logo.png" height="30px" width="30px" class="rounded-pill">
+            Investify
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="{{ url_for('home')}}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Topics
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ url_for('bsm.index')}}">Black-Scholes Merton Equation</a>
+                    <a class="dropdown-item" href="{{ url_for('scc.index')}}">Candle Stick Chart</a>
+                    <a class="dropdown-item" href="{{ url_for('pv.index')}}">Portfolio Visualization</a>
+                    <a class="dropdown-item" href="{{ url_for('mc.index')}}">Monte Carlo Stimulation</a>
+                </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" data-toggle="modal" data-target="#tickerModal">Ticker</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('News.news')}}">News</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('AboutUs.about')}}">About Us</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{url_for('form.index')}}" class="nav-link btn btn-outline-light">Login</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    <div class="acontainer0">
+        <h1>Black-Scholes Option Pricing</h1>
+        <p>
+            The Black-Scholes model is used to calculate the theoretical price of European call and put options. 
+            The equations used are:
+        </p>
+        <p><ul>
+            <li><b>S</b>: Current stock price</li>
+            <li><b>K</b>: Strike price</li>
+            <li><b>T</b>: Time to expiration (in years)</li>
+            <li><b>r</b>: Risk-free interest rate</li>
+            <li><b>vol</b>: Volatility of the stock</li>
+        </ul>
+        </p>
+        <p>
+            To learn more about the topic using python, press the button:
+        </p>
+        <button onclick="window.location.href='https:\\colab.research.google.com/drive/1DLRMGj-7IeDtcr4DtEKSZMb56Shkle6D#scrollTo=7q_kIo2T2bda'">Learn More</button>
+        <form id="optionForm">
+            <label for = 'S'>Current Market Price (S): </label>
+            <input type="number" id="S" name="S" step="0.01" required>
+            <label for = 'K'>Strike Price (K): </label>
+            <input type="number" id="K" name="K" step="0.01" required>
+            <label for = 'T'>Time to Maturity (T in years): </label>
+            <input type="number" id="T" name="T" step="0.01" required>
+            <label for = 'r'>Risk-Free Rate (r): </label>
+            <input type="number" id="r" name="r" step="0.01" required>
+            <label for = 'vol'>Volatility (vol): </label>
+            <input type="number" id="vol" name="vol" step="0.01" required>
+            <button type="submit">Calculate</button>
+        </form>
+        <div id="results">
+            <p id="call-option"></p>
+            <p id="put-option"></p>
+            <div id="steps">
+            </div>
+        </div>
+        
+    </div>
+    <script src="/static/BSMscript.js"></script>
+</body>
+</html>
